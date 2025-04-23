@@ -18,7 +18,8 @@ public class ReceiptService {
         purchaseDate(receiptDTO.getPurchaseDate())+
         purchaseTotal(receiptDTO.getPurchaseDate())+
         multiplesOfTotal(receiptDTO.getTotal())+
-        getTime(receiptDTO.getPurchaseTime());
+        getTime(receiptDTO.getPurchaseTime()) +
+       getTwoItemReceipt(receiptDTO.getItems());
     }
 
     //One point for every alphanumeric character in the retailer name.
@@ -48,20 +49,20 @@ public class ReceiptService {
     }
 
     //50 points if the total is a round dollar amount with no cents.
-    public static int purchaseTotal(String purchaseTotal) {
-        if (purchaseTotal != null && purchaseTotal.length() >= 2) {
-            String lastTwo = purchaseTotal.substring(purchaseTotal.length() - 2);
-            if(lastTwo.equals("00")){
-                return 50;
-            }
+    public static int purchaseTotal(String total) {
+        try {
+            double amount = Double.parseDouble(total);
+            return (amount == Math.floor(amount)) ? 50 : 0;
+        } catch (NumberFormatException e) {
+            return 0;
         }
-        return 0;
     }
 
     //25 points if the total is a multiple of 0.25
     public static int multiplesOfTotal(String multipleOfTotal) {
-        multipleOfTotal.length();
-        if (multipleOfTotal !=null && multipleOfTotal.length()%0.25==0){
+
+       double multipleTotal =  Double.parseDouble(multipleOfTotal);
+        if (multipleOfTotal !=null && multipleTotal%0.25==0){
             return 25;
         }
         return 0;
@@ -71,7 +72,7 @@ public class ReceiptService {
     public static int itemDescription(List<ItemDescription> itemDescription) {
         int itemDescriptionCount=0;
         for(int i=0; i<itemDescription.size(); i++){
-        if( itemDescription.get(i).getShortDescription().length()%3==0){
+        if( itemDescription.get(i).getShortDescription().trim().length()%3==0){
 
             String price = itemDescription.get(i).getPrice();
             Double getPrice= Double.parseDouble(price);
@@ -93,4 +94,13 @@ public class ReceiptService {
         }
     }
 
+    public static int getTwoItemReceipt(List<ItemDescription> items) {
+        if (items == null) {
+            return 0;
+        }
+        int itemCount =  items.size() / 2 * 5;
+        return itemCount;
+    }
 }
+
+
