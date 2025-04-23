@@ -16,7 +16,7 @@ public class ReceiptService {
        return calculatePoints(receiptDTO.getRetailer())+
         itemDescription(receiptDTO.getItems())+
         purchaseDate(receiptDTO.getPurchaseDate())+
-        purchaseTotal(receiptDTO.getPurchaseDate())+
+        purchaseTotal(receiptDTO.getTotal())+
         multiplesOfTotal(receiptDTO.getTotal())+
         getTime(receiptDTO.getPurchaseTime()) +
        getTwoItemReceipt(receiptDTO.getItems());
@@ -50,12 +50,14 @@ public class ReceiptService {
 
     //50 points if the total is a round dollar amount with no cents.
     public static int purchaseTotal(String total) {
-        try {
-            double amount = Double.parseDouble(total);
-            return (amount == Math.floor(amount)) ? 50 : 0;
-        } catch (NumberFormatException e) {
-            return 0;
+        if(total !=null && total.length()>=1){
+           String lastTwoTrimmed = total.substring(total.length()-2);
+           if(lastTwoTrimmed.equals("00")){
+               return 50;
+           }
         }
+
+        return 0;
     }
 
     //25 points if the total is a multiple of 0.25
@@ -87,7 +89,7 @@ public class ReceiptService {
         String firstTwoLetters = purchaseTime.substring(0,2);
         int intFirstTwoLetters = Integer.parseInt(firstTwoLetters);
 
-        if (intFirstTwoLetters > 14 && intFirstTwoLetters < 16) {
+        if (intFirstTwoLetters >= 14 && intFirstTwoLetters <=16) {
             return 10;
         }else {
             return 0;

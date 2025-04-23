@@ -53,14 +53,6 @@ public class ReceiptDTO {
         this.items = items;
     }
 
-    public String getTotal() {
-        return total;
-    }
-
-    public void setTotal(String total) {
-        this.total = total;
-    }
-
     public int getPoints() {
         return points;
     }
@@ -75,5 +67,13 @@ public class ReceiptDTO {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getTotal() {
+        return total;
+    }
+
+    public void setTotal(String total) {
+        this.total = total;
     }
 }
