@@ -1,15 +1,9 @@
 package com.example.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.List;
 
-//@Getter
-//@Setter
-@AllArgsConstructor
 public class ReceiptDTO {
 
     private String retailer;
