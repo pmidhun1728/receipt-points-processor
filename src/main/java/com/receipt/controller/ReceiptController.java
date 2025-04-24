@@ -27,6 +27,6 @@ public class ReceiptController {
         int totalPoints =  receiptService.totalPoints(receiptDTO);
         receiptDTO.setId(receiptService.generateId());
         receiptDTO.setPoints(totalPoints);
-        return receiptDTO;
+        return receiptService.saveReceipt(receiptDTO);
     }
 }
