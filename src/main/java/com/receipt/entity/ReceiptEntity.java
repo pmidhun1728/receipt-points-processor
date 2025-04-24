@@ -9,7 +9,6 @@ import lombok.Data;
 
 public class ReceiptEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name ="id")
     private String id;
 
