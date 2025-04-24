@@ -2,15 +2,22 @@ package com.receipt.service;
 
 import com.example.dto.ItemDescription;
 import com.example.dto.ReceiptDTO;
+import com.receipt.entity.ReceiptEntity;
+import com.receipt.repository.ReceiptRepository;
 import com.receipt.utils.CommonUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.lang.Integer.parseInt;
 
 @Service
 public class ReceiptService {
+
+    @Autowired
+    ReceiptRepository receiptRepository;
 
     public int totalPoints(ReceiptDTO receiptDTO){
        return calculatePoints(receiptDTO.getRetailer())+
@@ -102,6 +109,19 @@ public class ReceiptService {
         }
         int itemCount =  items.size() / 2 * 5;
         return itemCount;
+    }
+
+    public ReceiptDTO saveReceipt(ReceiptDTO receiptDTO) {
+        Optional<ReceiptEntity> optionalReceiptEntity = receiptRepository.findById(receiptDTO.getId());
+        if(optionalReceiptEntity.isPresent()){
+            optionalReceiptEntity.get().setPoints(receiptDTO.getPoints());
+            optionalReceiptEntity.get().setId(receiptDTO.getId());
+            receiptRepository.save(optionalReceiptEntity.get());
+        }else{
+            System.out.println("There is no Matching record to update Post call");
+        }
+
+        return receiptDTO;
     }
 }
 
