@@ -2,9 +2,11 @@ package com.receipt.controller;
 
 
 import com.example.dto.ReceiptDTO;
+import com.receipt.entity.ReceiptEntity;
 import com.receipt.service.ReceiptService;
 import com.receipt.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
