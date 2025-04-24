@@ -6,8 +6,7 @@ import lombok.Data;
 
 @Entity
 @Table(name="receipt")
-@Data
-@AllArgsConstructor
+
 public class ReceiptEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,5 +14,30 @@ public class ReceiptEntity {
     private String id;
 
     @Column(name ="points")
-    private Long points;
+    private int points;
+
+    public ReceiptEntity(String id, int points) {
+
+        this.id = id;
+        this.points =points;
+    }
+
+    public ReceiptEntity() {
+    }
+
+    public String  getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
 }
